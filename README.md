@@ -47,3 +47,17 @@ when you run the server from start, the terminal window will not be wrtitable. y
 in order to cancel the server, press control+c then press y for yes
 
 for now the terser is off because it mangles the varibles into weird things
+
+
+
+REASONS FOR USING WEBPACK
+
+It converts modern JS code - which can only be understood by modern browsers - into older versions of JavaScript so that older browsers can understand your code. This process is known as transpiling. For example, you can transpile ES7 code to ES5 code using webpack.  
+
+It optimizes your code to load as quickly as possible when a user visits your web pages. 
+
+It can process your SCSS code into the regular CSS, which browsers can understand. 
+
+It can build source maps of the bundle's building blocks  
+
+It can produce various kinds of files based on rules and templates. This includes HTML files, among others. 

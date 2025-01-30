@@ -8,49 +8,51 @@ export class Loader{
         this.e = e;
 
         this.ready=false;
-        this.objectsLoaded=0;
-        this.loaderArray=[];
         
-        this.totalModels = 0;
-        this.totalModelsLoaded = 0;
-
-        this.isLoaded_CUBE=true;
+        this.modelsLoaded=0;
+        this.texturesLoaded=0;
+        this.modelArray=[];
+        this.textureArray=[];
+        
+        this.isLoaded_CUBE=false;
         this.isLoaded_3DTEXTURES=false;
         this.isLoaded_3D=false;
         this.e.reflectionTexture=null;
+
+        this.totalSkinsLoaded = 0;
+
+        console.log("set up loader")
 
     }
 
     loadCubeTexture(loader){
         
         console.log("CUBE TEXTURE");
-        // this.isLoaded_CUBE=true;
+        this.isLoaded_CUBE=true;
     
     }
     
     loadTexture(loader){
 
-        loader.objectsLoaded+=1;
-        console.log("LOAD 3D TEXTURE: "+loader+" - "+this.objectsLoaded+" / "+this.loaderArray.length)
+        loader.texturesLoaded+=1;
+        console.log("TEXTURE: "+this.texturesLoaded+" / "+this.textureArray.length)
 
-        if(this.objectsLoaded===this.loaderArray.length){
+        if(this.modelsLoaded===this.modelArray.length){
             this.isLoaded_3DTEXTURES=true;
         }
         
     }
     
-   managerLoad(obName){
+    managerLoad(obName){
     
-        this.objectsLoaded+=1;
-        this.totalModelsLoaded+=1;
+        this.modelsLoaded+=1; 
+        console.log("MODEL: "+obName+" / "+this.modelsLoaded+" / "+this.modelArray.length)
 
-        console.log("MODEL: "+obName+" - "+this.objectsLoaded+" / "+this.loaderArray.length)
-
-        if(this.objectsLoaded===this.loaderArray.length){
+        if(this.modelsLoaded===this.modelArray.length){
             this.isLoaded_3D=true;
         }
 
-   }
+    }
 
    load(){
 
@@ -68,10 +70,9 @@ export class Loader{
         './src/images/ref/neg-y.png',
         './src/images/ref/pos-z.png',
         './src/images/ref/neg-z.png',
-        ], this.loadCubeTexture);
+        ],  () => this.loadCubeTexture());
 
-
-        this.loaderArray.push("blackTemp"); this.e.blackTemp = new THREE.TextureLoader().load( './src/images/black.png', this.loadTexture(this));
+        this.textureArray.push("blackTemp"); this.e.blackTemp = new THREE.TextureLoader().load( './src/images/black.png', this.loadTexture(this));
         // this.e.blackTemp.anisotropy = this.e.renderer.capabilities.getMaxAnisotropy();
 
         // this.e.blackTemp.repeat.x = 260;
@@ -80,15 +81,13 @@ export class Loader{
 
         //------------------------------------------------------------------
 
-        console.log("BEGIN LOADER");
-
-        this.myObject1 = "soccerBall"; this.loaderArray.push(this.myObject1);  this.totalModels+=1;
-        this.manage = new THREE.LoadingManager(); this.manage.onLoad = () => { this.managerLoad(this.myObject1) };
+        this.myObject1 = "soccerBall"; this.modelArray.push(this.myObject1);
+        this.manage = new THREE.LoadingManager(); this.manage.onLoad = ((modelName) => { return () => this.managerLoad(modelName);})(this.myObject1);
         this.loader = new GLTFLoader(this.manage); this.loader.load('./src/models/'+this.myObject1+'.glb', gltf => {  
         
             gltf.scene.traverse( function( object ) {
 
-                e.stadium=gltf.scene;
+                e.soccerBall=gltf.scene;
 
                 if ( object.isMesh ){
 
@@ -101,8 +100,6 @@ export class Loader{
             });
 
         }, this.loadSomething);
-
-        //------------------------------------------------------------------
 
     }
 

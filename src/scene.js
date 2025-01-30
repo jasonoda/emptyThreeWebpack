@@ -5,7 +5,7 @@ export class Scene {
     setUp(e) {
   
       this.e=e;
-  
+
     }
   
     buildScene(){
@@ -25,7 +25,7 @@ export class Scene {
       this.dl_shad.shadow.mapSize.height = 4096;
       // this.dl_shad.shadow.bias = .001;
       
-      this.e.sSize = 20;
+      this.e.sSize = 11;
       this.dl_shad.shadow.camera.near = 0.1; 
       this.dl_shad.shadow.camera.far = 180;
       this.dl_shad.shadow.camera.left = -this.e.sSize;

@@ -21,6 +21,8 @@ console.log(isProduction)
 // 3. Exports an object to be used as the configuration for Webpack.
 module.exports = {
 
+  devtool: 'cheap-module-source-map',
+
   //------------------------------------------------------------------------------------------------------------------------------------------------
   
   // 4. 'entry' specifies the entry point of the application, i.e., where Webpack starts the bundling process.
@@ -112,7 +114,7 @@ module.exports = {
           
     //         new JavaScriptObfuscator({
     //             rotateStringArray: true,
-    //             stringArray: true,
+    //             stringArray: false,
     //             stringArrayThreshold: 0.75,
     //         }),
     //     ]

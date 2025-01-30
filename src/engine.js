@@ -120,6 +120,8 @@ export default class Engine{
 
             // wait for 2d images
 
+            console.log(this.ui.isLoaded_UI)
+
             if(this.ui.isLoaded_UI===true){
                 this.action="load 3d";
             }
